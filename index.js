@@ -16,7 +16,15 @@ app.post('/log', async (req, res) => {
     return res.status(400).json({ status: 'failed', error: 'no details provided' });
   }
 
-  const elegantMessage = `✨ *تفاصيل الحجز الجديد* ✨\n\n📍 *المدينة:* ${details.formLocation}\n🛂 *نوع الفيزا:* ${details.visaType}\n🎟️ *التصنيف:* ${details.category}\n📑 *النوع الفرعي:* ${details.visaSubType}\n👥 *عدد الأشخاص:* ${details.numberofapplicants}`;
+  // رسالة أنيقة مع كل تفاصيل الحجز
+  const elegantMessage = `✨ *تفاصيل الحجز الجديد* ✨
+
+📍 *المدينة:* ${details.formLocation}
+🛂 *نوع الفيزا:* ${details.visaType}
+🎟️ *التصنيف:* ${details.category}
+📑 *النوع الفرعي:* ${details.visaSubType}
+👥 *عدد الأشخاص:* ${details.numberofapplicants}
+📅 *الأيام المتاحة:* ${details.openDays}`;
 
   try {
     await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
@@ -40,3 +48,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
