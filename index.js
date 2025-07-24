@@ -16,10 +16,12 @@ app.post('/log', async (req, res) => {
     return res.status(400).json({ status: 'failed', error: 'no details provided' });
   }
 
+  const elegantMessage = `✨ *تفاصيل الحجز الجديد* ✨\n\n📍 *المدينة:* ${details.formLocation}\n🛂 *نوع الفيزا:* ${details.visaType}\n🎟️ *التصنيف:* ${details.category}\n📑 *النوع الفرعي:* ${details.visaSubType}\n👥 *عدد الأشخاص:* ${details.numberofapplicants}`;
+
   try {
     await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
       chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: details,
+      text: elegantMessage,
       parse_mode: 'Markdown'
     });
 
